@@ -27,6 +27,12 @@
                         <div class="card-footer">
                             <a href="{% url 'update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
                             <a href="{% url 'delete-event' event.id %}" class="btn btn-danger btn-sm">Delete Event</a>
+                            <br>
+                        </div>
+                    {% else %}
+                        <div class="card-footer">
+                            <a href="{% url 'register-event' event.id %}" class="btn btn-success btn-sm">Register for Event</a>
+                            <br>
                         </div>
                     {% endif %}
                 </div>

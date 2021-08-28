@@ -30,6 +30,20 @@ class Event(models.Model):
     description = models.TextField(blank=True)
     manager = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
     attendees = models.ManyToManyField(ClubUser,blank=True)
+    register = models.ManyToManyField(ClubUser,related_name="Registered_students")
+
+    def __str__(self):
+        return self.name
+
+class Student(models.Model):
+    name = models.CharField('Full Name',max_length=120)
+    age = models.IntegerField('Age')
+    email = models.EmailField('Email')
+    phone = models.IntegerField('Phone Number')
+    college = models.CharField('College',max_length=120)
+    semester = models.IntegerField('Semester')
+    gender = models.CharField('Gender',max_length=20)
+    event = models.CharField('Event Name',max_length=120)
 
     def __str__(self):
         return self.name

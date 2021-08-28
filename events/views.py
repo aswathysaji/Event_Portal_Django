@@ -1,13 +1,33 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 from django.http import HttpResponseRedirect, response
-from .models import Event, Venue
+from .models import Event, Venue, Student
 from .forms import VenueForm, EventForm
 from django.http import HttpResponse
+from django.urls import reverse, reverse_lazy
 
 # Create your views here.
+def register_event(request,event_id):
+    event = Event.objects.get(pk=event_id)
+    if request.method == "POST":
+        name = request.POST['name']
+        age = request.POST['age']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        college = request.POST['college']
+        semester = request.POST['semester']
+        gender = request.POST['gender']
+        event = request.POST['event']
+        student = Student(name=name,age=age,email=email,phone=phone,college=college,semester=semester,gender=gender,event=event)
+        student.save()
+        return redirect('')
+    else:
+        return render(request,'events/register_event.html',{
+            "event" : event
+        })
+
 def venue_text(request):
     response = HttpResponse(content_type='text/plain')
     response['Content-Disposition'] = 'attachment; filename = venues.txt'
